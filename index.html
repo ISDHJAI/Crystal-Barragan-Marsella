@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Marsella — Terram Residencial | Crystal Barragán · Asesora Inmobiliaria | CASTDIM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rust:#c15117;
+    --rust-deep:#9c4212;
+    --brick:#ab2c2a;
+    --brick-deep:#84211f;
+    --peach:#f3c9b3;
+    --gray-dark:#767571;
+    --gray-mid:#b7b6b2;
+    --bg:#f6f6f4;
+    --white:#ffffff;
+    --ink:#211f1e;
+    --ink-soft:#5c5b57;
+    --line:#e5e4e0;
+    --radius:18px;
+    --ease:cubic-bezier(.22,1,.36,1);
+    --wa:#25d366;
+    --wa-deep:#128c4b;
+    --wa-dark:#075e54;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Montserrat', sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%; display:block;}
+
+  .wrap{max-width:520px; margin:0 auto; position:relative; background:var(--bg);}
+
+  /* ---------- utility ---------- */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s var(--ease), transform .8s var(--ease);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  .eyebrow{
+    font-size:11.5px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--gray-dark); display:flex; align-items:center; gap:8px; margin-bottom:10px;
+  }
+  .eyebrow::before{
+    content:""; width:16px; height:2px; background:var(--rust); display:inline-block;
+  }
+  .section{padding:56px 24px;}
+  .section-title{
+    font-size:26px; font-weight:800; letter-spacing:-.01em; line-height:1.15; color:var(--ink);
+  }
+  .section-sub{
+    font-size:14px; color:var(--ink-soft); font-weight:400; line-height:1.6; margin-top:10px;
+  }
+
+  .divider{
+    display:flex; align-items:flex-end; justify-content:center; gap:6px; padding:38px 0 10px;
+  }
+  .divider i{
+    width:0; height:0; border-left:7px solid transparent; border-right:7px solid transparent;
+    opacity:.35; transform:translateY(10px); transition:transform .7s var(--ease), opacity .7s var(--ease);
+  }
+  .divider i:nth-child(1){border-bottom:12px solid var(--rust);}
+  .divider i:nth-child(2){border-bottom:16px solid var(--gray-mid);}
+  .divider i:nth-child(3){border-bottom:12px solid var(--brick);}
+  .divider.in i{opacity:1; transform:translateY(0);}
+  .divider.in i:nth-child(2){transition-delay:.08s;}
+  .divider.in i:nth-child(3){transition-delay:.16s;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; height:100svh; min-height:640px; overflow:hidden;
+    display:flex; flex-direction:column; justify-content:space-between;
+    background:linear-gradient(160deg, var(--rust) 0%, var(--brick-deep) 100%);
+  }
+  .hero-img{
+    position:absolute; inset:0; width:100%; height:112%; object-fit:cover; z-index:0;
+    transform:scale(1.08); animation:heroZoom 9s var(--ease) forwards;
+  }
+  @keyframes heroZoom{ from{transform:scale(1.14);} to{transform:scale(1.02) translateY(-2%);} }
+  .hero::after{
+    content:""; position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, rgba(28,15,8,.4) 0%, rgba(28,15,8,.15) 38%, rgba(28,15,8,.3) 62%, rgba(20,10,6,.92) 100%),
+                linear-gradient(160deg, rgba(193,81,23,.28) 0%, rgba(132,33,31,.42) 100%);
+  }
+  .hero-top{
+    position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center;
+    padding:26px 22px 0; gap:14px;
+    opacity:0; animation:fadeDown 1s var(--ease) .3s forwards;
+  }
+  @keyframes fadeDown{from{opacity:0; transform:translateY(-14px);} to{opacity:1; transform:translateY(0);}}
+  .hero-brand-logo{
+    height:58px; width:auto; filter:brightness(0) invert(1) drop-shadow(0 0 12px rgba(255,255,255,.55));
+    animation:logoGlow 3.2s ease-in-out infinite;
+  }
+  @keyframes logoGlow{
+    0%,100%{filter:brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,.35));}
+    50%{filter:brightness(0) invert(1) drop-shadow(0 0 16px rgba(255,241,232,.9));}
+  }
+  .hero-agent{text-align:right; color:#fff; line-height:1.25;}
+  .hero-agent b{
+    display:block; font-size:14.5px; font-weight:800; letter-spacing:.02em;
+    text-shadow:0 2px 10px rgba(0,0,0,.35);
+  }
+  .hero-agent span{
+    display:inline-block; font-size:9.5px; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--peach); border-top:1.5px solid rgba(243,201,179,.6); padding-top:4px; margin-top:4px;
+  }
+
+  .hero-bottom{position:relative; z-index:2; padding:0 26px 66px; color:#fff;}
+  .hero-tagline{
+    height:20px; overflow:hidden; margin-bottom:14px;
+    opacity:0; animation:fadeUp .9s var(--ease) .5s forwards;
+  }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
+  .hero-tagline ul{list-style:none;}
+  .hero-tagline li{
+    height:20px; font-size:11px; font-weight:600; letter-spacing:.13em; text-transform:uppercase; color:var(--peach);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .tick{animation:tick 7s steps(1) infinite;}
+  @keyframes tick{
+    0%,22%{transform:translateY(0);} 25%,47%{transform:translateY(-20px);}
+    50%,72%{transform:translateY(-40px);} 75%,97%{transform:translateY(-60px);} 100%{transform:translateY(0);}
+  }
+  .hero-title{
+    font-size:52px; font-weight:900; line-height:.92; letter-spacing:-.02em; text-transform:uppercase;
+    opacity:0; animation:fadeUp 1s var(--ease) .65s forwards;
+  }
+  .hero-title span{color:var(--peach); display:block; font-size:15px; font-weight:600; letter-spacing:.28em; margin-top:10px; text-transform:uppercase;}
+  .hero-location{
+    display:flex; align-items:center; gap:6px; margin-top:12px;
+    opacity:0; animation:fadeUp 1s var(--ease) .74s forwards;
+  }
+  .hero-location svg{width:13px; height:13px; flex:none; fill:var(--peach); animation:pinBounce 2.4s ease-in-out infinite;}
+  .hero-location span{font-size:12.5px; font-weight:600; color:#e8ded8; letter-spacing:.02em;}
+  @keyframes pinBounce{0%,100%{transform:translateY(0);} 50%{transform:translateY(-3px);}}
+  .hero-price{
+    margin-top:14px; display:inline-flex; align-items:baseline; gap:8px;
+    opacity:0; animation:fadeUp 1s var(--ease) .85s forwards;
+  }
+  .hero-price small{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#e8ded8; font-weight:600;}
+  .hero-price b{
+    font-size:24px; font-weight:800;
+    background:linear-gradient(90deg, var(--peach) 0%, #fff1e8 45%, var(--peach) 100%);
+    background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:shimmer 3.5s linear infinite;
+  }
+  @keyframes shimmer{0%{background-position:200% center;} 100%{background-position:-200% center;}}
+  .hero-meta{
+    display:flex; gap:22px; margin-top:20px; opacity:0; animation:fadeUp 1s var(--ease) .96s forwards;
+  }
+  .hero-meta div b{display:block; font-size:19px; font-weight:800;}
+  .hero-meta div small{font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#e8ded8; font-weight:600;}
+
+  .scroll-cue{
+    position:absolute; z-index:2; bottom:20px; left:50%; transform:translateX(-50%);
+    width:22px; height:34px; border:1.5px solid rgba(255,255,255,.5); border-radius:20px;
+  }
+  .scroll-cue::after{
+    content:""; position:absolute; top:6px; left:50%; transform:translateX(-50%);
+    width:4px; height:6px; background:var(--peach); border-radius:2px; animation:cue 1.8s ease-in-out infinite;
+  }
+  @keyframes cue{0%{opacity:1; top:6px;} 60%{opacity:0; top:18px;} 61%{opacity:0; top:6px;} 100%{opacity:1; top:6px;}}
+
+  /* ---------- SPECS ---------- */
+  .specs-strip{
+    display:flex; background:var(--ink); border-radius:var(--radius); overflow:hidden;
+    margin-top:4px;
+  }
+  .spec{
+    flex:1; padding:26px 12px; text-align:center; position:relative;
+  }
+  .spec + .spec::before{
+    content:""; position:absolute; left:0; top:20%; bottom:20%; width:1px; background:rgba(255,255,255,.14);
+  }
+  .spec .num{
+    font-size:28px; font-weight:800; color:#fff; letter-spacing:-.01em; font-variant-numeric:tabular-nums;
+  }
+  .spec .num em{color:var(--rust); font-style:normal; font-size:15px; margin-left:2px;}
+  .spec .lbl{font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gray-mid); margin-top:6px; font-weight:600;}
+
+  /* ---------- DISTRIBUTION ---------- */
+  .plans-list{margin-top:26px; display:flex; flex-direction:column; gap:22px;}
+  .plan-card{
+    background:var(--white); border-radius:var(--radius); overflow:hidden; border:1px solid var(--line);
+    box-shadow:0 18px 40px -22px rgba(30,29,26,.25);
+    transition:transform .4s var(--ease), box-shadow .4s var(--ease);
+  }
+  .plan-card:hover{transform:translateY(-4px); box-shadow:0 24px 50px -22px rgba(30,29,26,.32);}
+  .plan-head{
+    display:flex; align-items:center; justify-content:space-between; padding:16px 18px 0;
+  }
+  .plan-head h3{font-size:15px; font-weight:700;}
+  .plan-head span{
+    font-size:10px; font-weight:700; letter-spacing:.12em; color:var(--rust-deep); background:#fbe4d5;
+    padding:5px 10px; border-radius:20px; text-transform:uppercase;
+  }
+  .plan-card figure{padding:10px 6px 16px; cursor:zoom-in; overflow:hidden;}
+  .plan-card figure img{transition:transform .6s var(--ease);}
+  .plan-card:hover figure img{transform:scale(1.04);}
+  .plan-card ul{
+    list-style:none; padding:0 18px 18px; display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .plan-card li{
+    font-size:11px; color:var(--ink-soft); background:var(--bg); border:1px solid var(--line);
+    padding:6px 10px; border-radius:20px; font-weight:500;
+  }
+
+  /* ---------- GALLERY ---------- */
+  .tabs{
+    display:flex; gap:8px; overflow-x:auto; padding-bottom:6px; margin-top:20px; scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto; font-size:12px; font-weight:600; padding:10px 16px; border-radius:30px;
+    background:var(--white); border:1px solid var(--line); color:var(--ink-soft); white-space:nowrap;
+    transition:all .25s var(--ease); font-family:'Montserrat', sans-serif; cursor:pointer;
+  }
+  .tab.active{background:var(--rust); color:#fff; border-color:var(--rust);}
+
+  .gallery-list{display:flex; flex-direction:column; margin-top:22px;}
+  .room-block{padding:24px 0; border-bottom:1px solid var(--line);}
+  .room-block:first-child{padding-top:0;}
+  .room-block:last-child{border-bottom:none; padding-bottom:0;}
+  .room-head{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
+  .room-num{
+    width:26px; height:26px; border-radius:50%; background:var(--rust); color:#fff;
+    font-size:11.5px; font-weight:800; display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .room-head h3{font-size:15px; font-weight:700; color:var(--ink); letter-spacing:.01em;}
+
+  .room-photos{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .g-card{
+    position:relative; border-radius:14px; overflow:hidden; aspect-ratio:1/1.05;
+    background:linear-gradient(150deg,#efeeea,#e2e0da); cursor:zoom-in;
+    box-shadow:0 0 0 0 rgba(30,29,26,0);
+    transition:box-shadow .4s var(--ease);
+  }
+  .g-card:hover{box-shadow:0 20px 44px -20px rgba(30,29,26,.35);}
+  .g-card.wide{grid-column:1/-1; aspect-ratio:16/10;}
+  .g-card img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0; transition:transform .6s var(--ease);}
+  .g-card:hover img{transform:scale(1.08);}
+  .g-card.empty{
+    grid-column:1/-1; cursor:default; display:flex; align-items:center; justify-content:center;
+    border:1.5px dashed var(--gray-mid); aspect-ratio:16/7;
+  }
+  .g-card.empty .soon{font-size:11px; color:var(--gray-dark); font-weight:700; letter-spacing:.1em; text-transform:uppercase;}
+
+  /* ---------- FINANCING ---------- */
+  .fin-card{
+    background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px 22px; margin-top:20px; text-align:center;
+    box-shadow:0 18px 40px -24px rgba(30,29,26,.2);
+    transition:transform .4s var(--ease), box-shadow .4s var(--ease);
+  }
+  .fin-card:hover{transform:translateY(-4px); box-shadow:0 24px 50px -24px rgba(30,29,26,.3);}
+  .fin-card p{font-size:13px; color:var(--ink-soft); line-height:1.6;}
+  .fin-badges{
+    display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:20px;
+  }
+  .fin-badges span{
+    font-size:11.5px; font-weight:700; color:var(--ink); background:var(--bg);
+    border:1px solid var(--line); padding:8px 14px; border-radius:20px;
+  }
+
+  /* ---------- UBICACIÓN ---------- */
+  .location-card{
+    background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
+    padding:30px 24px; margin-top:20px; text-align:center;
+    box-shadow:0 18px 40px -24px rgba(30,29,26,.2);
+  }
+  .terram-logo{max-width:170px; margin:0 auto 18px;}
+  .location-address{display:flex; align-items:center; justify-content:center; gap:7px; margin-bottom:20px;}
+  .location-address svg{width:15px; height:15px; flex:none; fill:var(--rust);}
+  .location-address span{font-size:13.5px; font-weight:600; color:var(--ink-soft);}
+  .map-embed{
+    position:relative; border-radius:14px; overflow:hidden; border:1px solid var(--line);
+    margin-bottom:20px; background:var(--bg);
+  }
+  .map-embed iframe{
+    display:block; width:100%; height:340px; border:0;
+  }
+  .btn-maps{
+    display:inline-flex; align-items:center; gap:8px; background:var(--ink); color:#fff; font-weight:700;
+    font-size:13px; letter-spacing:.04em; padding:14px 28px; border-radius:30px; text-decoration:none;
+    transition:transform .3s var(--ease), box-shadow .3s var(--ease);
+  }
+  .btn-maps:hover{transform:translateY(-3px); box-shadow:0 20px 40px -18px rgba(30,29,26,.4);}
+  .btn-maps:active{transform:scale(.96);}
+  .btn-maps svg{width:15px; height:15px; fill:var(--peach);}
+
+  /* ---------- CTA / FOOTER ---------- */
+  .cta{
+    background:var(--ink); color:#fff; text-align:center; padding:60px 26px 46px; position:relative; overflow:hidden;
+  }
+  .cta::before{
+    content:""; position:absolute; top:-40px; right:-30px; width:180px; height:180px;
+    background:radial-gradient(circle, rgba(193,81,23,.25), transparent 70%);
+  }
+  .cta::after{
+    content:""; position:absolute; bottom:-50px; left:-30px; width:180px; height:180px;
+    background:radial-gradient(circle, rgba(171,44,42,.22), transparent 70%);
+  }
+  .cta h2{font-size:24px; font-weight:800; line-height:1.2; position:relative; z-index:1;}
+  .cta p{font-size:13px; color:var(--gray-mid); margin-top:12px; line-height:1.6; position:relative; z-index:1;}
+  .cta-btn{
+    display:inline-flex; align-items:center; gap:9px; margin-top:24px;
+    background:linear-gradient(135deg, var(--wa) 0%, var(--wa-deep) 100%); color:#fff; font-weight:700;
+    font-size:13px; letter-spacing:.04em; padding:15px 32px; border-radius:30px; text-decoration:none;
+    position:relative; z-index:1; overflow:hidden;
+    box-shadow:0 16px 34px -14px rgba(37,211,102,.6);
+    transition:transform .3s var(--ease), box-shadow .3s var(--ease);
+  }
+  .cta-btn::after{
+    content:""; position:absolute; top:0; left:-80%; width:50%; height:100%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent);
+    animation:btnShine 3.2s var(--ease) infinite;
+  }
+  .cta-btn svg{width:16px; height:16px; fill:#fff;}
+  .cta-btn:hover{transform:translateY(-3px); box-shadow:0 22px 44px -14px rgba(37,211,102,.7);}
+  .cta-btn:active{transform:scale(.96);}
+  .footer-logo{margin-top:38px; opacity:.95; position:relative; z-index:1;}
+  .footer-logo img{height:22px; margin:0 auto; filter:brightness(0) invert(1);}
+  .footer-tag{font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--gray-mid); margin-top:10px;}
+  .logo-link{display:inline-block; line-height:0;}
+
+  /* ---------- INLINE AGENDAR CTA ---------- */
+  .btn-agendar-wrap{
+    display:flex; flex-direction:column; align-items:center; gap:12px;
+    margin-top:32px; text-align:center;
+  }
+  .btn-agendar-wrap p{font-size:12.5px; color:var(--ink-soft); font-weight:500; max-width:340px;}
+  .btn-agendar{
+    display:inline-flex; align-items:center; gap:8px;
+    background:linear-gradient(135deg, var(--wa) 0%, var(--wa-deep) 100%); color:#fff;
+    font-weight:700; font-size:13px; letter-spacing:.04em; padding:14px 30px; border-radius:30px;
+    text-decoration:none; position:relative; overflow:hidden;
+    box-shadow:0 16px 32px -16px rgba(37,211,102,.65);
+    transition:transform .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .btn-agendar::after{
+    content:""; position:absolute; top:0; left:-80%; width:50%; height:100%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent);
+    animation:btnShine 3.2s var(--ease) infinite;
+  }
+  @keyframes btnShine{0%{left:-80%;} 55%,100%{left:130%;}}
+  .btn-agendar:hover{transform:translateY(-3px); box-shadow:0 22px 40px -14px rgba(37,211,102,.75);}
+  .btn-agendar:active{transform:scale(.96);}
+  .btn-agendar svg{width:15px; height:15px; fill:#fff;}
+
+  /* ---------- SCROLL PROGRESS ---------- */
+  .scroll-progress{
+    position:fixed; top:0; left:0; height:3px; width:0%;
+    background:linear-gradient(90deg, var(--rust), var(--brick), var(--wa));
+    z-index:120; transition:width .1s linear;
+    box-shadow:0 0 10px rgba(37,211,102,.5);
+  }
+
+  /* ---------- BRANDS (CASTDIM + TERRAM) ---------- */
+  .brands-section{padding:10px 24px 46px; text-align:center;}
+  .brands-title{
+    font-size:11px; font-weight:700; letter-spacing:.24em; text-transform:uppercase;
+    color:var(--gray-dark); margin-bottom:22px;
+  }
+  .brands-strip{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+  .brand-badge{
+    flex:1; min-width:150px; max-width:230px; background:var(--white);
+    border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px 20px; position:relative; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 18px 40px -24px rgba(30,29,26,.28);
+    transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+  }
+  .brand-badge::before{
+    content:""; position:absolute; inset:0; border-radius:var(--radius); padding:2px;
+    background:linear-gradient(120deg, var(--rust), var(--peach), var(--brick), var(--rust));
+    background-size:300% 300%; animation:borderFlow 5s linear infinite;
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude; opacity:.85;
+  }
+  @keyframes borderFlow{0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;}}
+  .brand-badge::after{
+    content:""; position:absolute; top:-30%; left:-90%; width:55%; height:160%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,.75), transparent);
+    transform:rotate(8deg); animation:btnShine 4s var(--ease) infinite;
+  }
+  .brand-badge:hover{transform:translateY(-6px) scale(1.02); box-shadow:0 26px 54px -22px rgba(193,81,23,.4);}
+  .brand-badge img{max-height:56px; width:auto; position:relative; z-index:1;}
+
+  /* ---------- FLOATING CRYSTAL BUTTON ---------- */
+  .crystal-float{
+    position:fixed; right:16px; bottom:24px; z-index:110;
+    display:flex; align-items:center; gap:10px; text-decoration:none;
+    opacity:0; transform:translateX(130%); pointer-events:none;
+    transition:opacity .6s var(--ease), transform .6s var(--ease);
+  }
+  .crystal-float.show{opacity:1; transform:translateX(0); pointer-events:auto;}
+  .crystal-bubble{
+    background:var(--white); color:var(--ink); font-size:12.5px; font-weight:700;
+    padding:12px 16px; border-radius:18px 18px 4px 18px; max-width:190px; line-height:1.35;
+    border:1px solid var(--line); box-shadow:0 18px 40px -18px rgba(30,29,26,.4);
+    position:relative; animation:bubbleFloat 3s ease-in-out infinite;
+  }
+  .crystal-bubble small{
+    display:block; font-size:10px; font-weight:600; color:var(--wa-deep);
+    letter-spacing:.06em; text-transform:uppercase; margin-top:3px;
+  }
+  @keyframes bubbleFloat{0%,100%{transform:translateY(0);} 50%{transform:translateY(-4px);}}
+  .crystal-avatar-wrap{position:relative; width:66px; height:66px; flex:none;}
+  .crystal-avatar-wrap::before{
+    content:""; position:absolute; inset:-5px; border-radius:50%;
+    border:2px solid var(--wa); opacity:.8; animation:pulseRing 2s var(--ease) infinite;
+  }
+  @keyframes pulseRing{
+    0%{transform:scale(.85); opacity:.8;}
+    70%{transform:scale(1.25); opacity:0;}
+    100%{transform:scale(1.25); opacity:0;}
+  }
+  .crystal-avatar{
+    width:66px; height:66px; border-radius:50%; object-fit:cover; object-position:top center;
+    border:3px solid var(--wa); background:var(--white);
+    box-shadow:0 14px 30px -12px rgba(7,94,84,.55);
+    transition:transform .3s var(--ease);
+  }
+  .crystal-float:hover .crystal-avatar{transform:scale(1.08);}
+  .crystal-avatar-fallback{
+    width:66px; height:66px; border-radius:50%; border:3px solid var(--wa);
+    background:linear-gradient(135deg, var(--rust), var(--brick-deep));
+    color:#fff; font-size:20px; font-weight:800; letter-spacing:.02em;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 14px 30px -12px rgba(7,94,84,.55);
+  }
+  .crystal-wa-dot{
+    position:absolute; bottom:-2px; right:-2px; width:24px; height:24px; border-radius:50%;
+    background:var(--wa); border:2.5px solid #fff; display:flex; align-items:center; justify-content:center;
+    z-index:2;
+  }
+  .crystal-wa-dot svg{width:12px; height:12px; fill:#fff;}
+
+  /* ---------- LIGHTBOX ---------- */
+  .lightbox{
+    position:fixed; inset:0; background:rgba(15,14,13,.94); z-index:99; display:none;
+    align-items:center; justify-content:center; padding:20px;
+  }
+  .lightbox.show{display:flex; animation:fadeIn .25s ease;}
+  @keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
+  .lightbox img{max-height:88vh; border-radius:10px; animation:lbZoom .35s var(--ease);}
+  @keyframes lbZoom{from{transform:scale(.92); opacity:0;} to{transform:scale(1); opacity:1;}}
+  .lightbox span{
+    position:absolute; top:24px; right:24px; color:#fff; font-size:26px; font-weight:300;
+  }
+
+  /* ---------- DESKTOP ADAPTATION ---------- */
+  @media (min-width:860px){
+    .wrap{max-width:920px;}
+    .hero{min-height:720px;}
+    .hero-top{padding:34px 44px 0;}
+    .hero-brand-logo{height:74px;}
+    .hero-agent b{font-size:18px;}
+    .hero-agent span{font-size:11px;}
+    .brand-badge img{max-height:68px;}
+    .crystal-float{right:28px; bottom:32px;}
+    .crystal-bubble{max-width:230px; font-size:13.5px;}
+    .hero-bottom{padding:0 52px 76px;}
+    .hero-title{font-size:68px;}
+    .hero-tagline li{font-size:13px;}
+    .section{padding:70px 52px;}
+    .plans-list{flex-direction:row;}
+    .plan-card{flex:1;}
+    .room-photos{grid-template-columns:repeat(3,1fr);}
+    .fin-badges span{font-size:12.5px;}
+    .map-embed iframe{height:420px;}
+  }
+  @media (min-width:1200px){
+    .wrap{max-width:1080px;}
+    .room-photos{grid-template-columns:repeat(4,1fr);}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <img src="images/fachada.jpg" alt="Fachada Modelo Marsella" class="hero-img">
+    <div class="hero-top">
+      <img src="images/logo-castdim.png" alt="CASTDIM" class="hero-brand-logo">
+      <div class="hero-agent">
+        <b>Crystal Barragán</b>
+        <span>Asesora Inmobiliaria</span>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <div class="hero-tagline">
+        <ul class="tick">
+          <li>Sueños Hechos Propiedad</li>
+          <li>Villa de Pozos, San Luis Potosí</li>
+          <li>Tu próximo hogar te espera</li>
+          <li>Sueños Hechos Propiedad</li>
+        </ul>
+      </div>
+      <h1 class="hero-title">Marsella<span>Terram Residencial · CASTDIM</span></h1>
+      <div class="hero-location">
+        <svg viewBox="0 0 24 24"><path d="M12 2c-4.42 0-8 3.58-8 8 0 5.5 8 12 8 12s8-6.5 8-12c0-4.42-3.58-8-8-8zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg>
+        <span>Villa de Pozos, San Luis Potosí</span>
+      </div>
+      <div class="hero-price"><small>Precio desde</small><b>$2,149,000</b></div>
+      <div class="hero-meta">
+        <div><b>120 m²</b><small>Terreno</small></div>
+        <div><b>127.85 m²</b><small>Construcción</small></div>
+        <div><b>2 niveles</b><small>Distribución</small></div>
+      </div>
+    </div>
+    <div class="scroll-cue"></div>
+  </section>
+
+  <!-- ===================== SPECS ===================== -->
+  <section class="section" style="padding-top:34px;">
+    <div class="reveal specs-strip">
+      <div class="spec"><div class="num">120<em>m²</em></div><div class="lbl">Terreno</div></div>
+      <div class="spec"><div class="num">127<em>.85 m²</em></div><div class="lbl">Construcción</div></div>
+      <div class="spec"><div class="num">2</div><div class="lbl">Niveles</div></div>
+    </div>
+    <div class="btn-agendar-wrap reveal">
+      <p>¿Te gustó lo que viste hasta ahora?</p>
+      <a href="https://wa.me/524445188544?text=Hola%20Crystal%2C%20vi%20Marsella%20en%20tu%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20conocerla%20en%20persona." class="btn-agendar">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Agendar cita
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================== MARCAS ===================== -->
+  <section class="brands-section reveal">
+    <div class="brands-title">Un desarrollo respaldado por</div>
+    <div class="brands-strip">
+      <div class="brand-badge"><img src="images/logo-castdim.png" alt="CASTDIM"></div>
+      <div class="brand-badge"><img src="images/logo-terram.png" alt="Terram Residencial"></div>
+    </div>
+  </section>
+
+  <div class="divider reveal"><i></i><i></i><i></i></div>
+
+  <!-- ===================== DISTRIBUCIÓN ===================== -->
+  <section class="section" style="padding-top:6px;">
+    <div class="reveal">
+      <div class="eyebrow">Distribución</div>
+      <h2 class="section-title">Cada espacio, pensado para tu familia</h2>
+      <p class="section-sub">Marsella se desarrolla en dos plantas: la planta baja concentra la vida social; la planta alta reúne el descanso y los espacios privados.</p>
+    </div>
+
+    <div class="plans-list">
+      <div class="plan-card reveal">
+        <div class="plan-head">
+          <h3>Planta Baja</h3>
+          <span>Nivel 1</span>
+        </div>
+        <figure onclick="openLightbox('images/planta-baja.jpg')">
+          <img src="images/planta-baja.jpg" alt="Planta baja Marsella">
+        </figure>
+        <ul>
+          <li>Sala</li><li>Comedor</li><li>Cocina</li>
+          <li>Cuarto de lavado</li><li>Puerta de servicio</li>
+          <li>1/2 baño</li><li>Patio trasero</li>
+        </ul>
+      </div>
+
+      <div class="plan-card reveal">
+        <div class="plan-head">
+          <h3>Planta Alta</h3>
+          <span>Nivel 2</span>
+        </div>
+        <figure onclick="openLightbox('images/planta-alta.jpg')">
+          <img src="images/planta-alta.jpg" alt="Planta alta Marsella">
+        </figure>
+        <ul>
+          <li>Habitación principal</li><li>Vestidor</li><li>Baño completo</li>
+          <li>2 habitaciones secundarias</li><li>Baño completo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="btn-agendar-wrap reveal">
+      <p>Conoce esta distribución en persona.</p>
+      <a href="https://wa.me/524445188544?text=Hola%20Crystal%2C%20vi%20Marsella%20en%20tu%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20conocerla%20en%20persona." class="btn-agendar">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Agendar cita
+      </a>
+    </div>
+  </section>
+
+  <div class="divider reveal"><i></i><i></i><i></i></div>
+
+  <!-- ===================== GALERÍA ===================== -->
+  <section class="section" style="padding-top:6px;">
+    <div class="reveal">
+      <div class="eyebrow">Galería</div>
+      <h2 class="section-title">Recorre Marsella por espacio</h2>
+      <p class="section-sub">Explora cada área de la casa, agrupada por espacio: planta baja, planta alta, recámaras y baños.</p>
+    </div>
+
+    <div class="tabs reveal" id="tabs">
+      <button class="tab active" data-filter="all">Todos</button>
+      <button class="tab" data-filter="pb">Planta Baja</button>
+      <button class="tab" data-filter="pa">Planta Alta</button>
+    </div>
+
+    <!--
+      ══════════════════════════════════════════════════════════
+      CÓMO AGREGAR MÁS FOTOS:
+      Cada .room-block trae data-cat ("pb" o "pa") para el filtro y
+      agrupa TODAS las fotos de ese mismo cuarto dentro de .room-photos.
+      Nunca mezcles fotos de dos cuartos distintos en un mismo bloque.
+      Si un cuarto no tiene foto todavía, usa un g-card.empty con "Próximamente".
+      ══════════════════════════════════════════════════════════
+    -->
+    <div class="gallery-list" id="gallery">
+
+      <!-- 1. Sala -->
+      <div class="room-block reveal" data-cat="pb">
+        <div class="room-head"><span class="room-num">1</span><h3>Sala</h3></div>
+        <div class="room-photos">
+          <div class="g-card" onclick="openLightbox('images/sala-1.jpg')">
+            <img src="images/sala-1.jpg" alt="Sala Marsella">
+          </div>
+          <div class="g-card" onclick="openLightbox('images/sala-2.jpg')">
+            <img src="images/sala-2.jpg" alt="Sala Marsella, otro ángulo">
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Comedor -->
+      <div class="room-block reveal" data-cat="pb">
+        <div class="room-head"><span class="room-num">2</span><h3>Comedor</h3></div>
+        <div class="room-photos">
+          <div class="g-card wide" onclick="openLightbox('images/comedor-1.jpg')">
+            <img src="images/comedor-1.jpg" alt="Comedor Marsella">
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Cocina -->
+      <div class="room-block reveal" data-cat="pb">
+        <div class="room-head"><span class="room-num">3</span><h3>Cocina</h3></div>
+        <div class="room-photos">
+          <div class="g-card wide" onclick="openLightbox('images/cocina-1.jpg')">
+            <img src="images/cocina-1.jpg" alt="Cocina Marsella">
+          </div>
+          <div class="g-card" onclick="openLightbox('images/cocina-2.jpg')">
+            <img src="images/cocina-2.jpg" alt="Cocina Marsella, otro ángulo">
+          </div>
+          <div class="g-card" onclick="openLightbox('images/cocina-3.jpg')">
+            <img src="images/cocina-3.jpg" alt="Cocina Marsella, detalle">
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Medio baño -->
+      <div class="room-block reveal" data-cat="pb">
+        <div class="room-head"><span class="room-num">4</span><h3>Medio baño</h3></div>
+        <div class="room-photos">
+          <div class="g-card wide" onclick="openLightbox('images/medio-bano.jpg')">
+            <img src="images/medio-bano.jpg" alt="Medio baño Marsella">
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Cuarto de lavado -->
+      <div class="room-block reveal" data-cat="pb">
+        <div class="room-head"><span class="room-num">5</span><h3>Cuarto de lavado</h3></div>
+        <div class="room-photos">
+          <div class="g-card wide" onclick="openLightbox('images/cuarto-lavado.jpg')">
+            <img src="images/cuarto-lavado.jpg" alt="Cuarto de lavado Marsella">
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Patio trasero -->
+      <div class="room-block reveal" data-cat="pb">
+        <div class="room-head"><span class="room-num">6</span><h3>Patio trasero</h3></div>
+        <div class="room-photos">
+          <div class="g-card" onclick="openLightbox('images/patio-trasero-1.jpg')">
+            <img src="images/patio-trasero-1.jpg" alt="Patio trasero Marsella">
+          </div>
+          <div class="g-card" onclick="openLightbox('images/patio-trasero-2.jpg')">
+            <img src="images/patio-trasero-2.jpg" alt="Patio trasero Marsella, otro ángulo">
+          </div>
+        </div>
+      </div>
+
+      <!-- Extra: Escaleras -->
+      <div class="room-block reveal" data-cat="pb">
+        <div class="room-head"><span class="room-num">+</span><h3>Escaleras</h3></div>
+        <div class="room-photos">
+          <div class="g-card wide" onclick="openLightbox('images/escaleras-1.jpg')">
+            <img src="images/escaleras-1.jpg" alt="Escaleras Marsella">
+          </div>
+          <div class="g-card" onclick="openLightbox('images/escaleras-2.jpg')">
+            <img src="images/escaleras-2.jpg" alt="Escaleras Marsella, otro ángulo">
+          </div>
+          <div class="g-card" onclick="openLightbox('images/escaleras-3.jpg')">
+            <img src="images/escaleras-3.jpg" alt="Escaleras Marsella, detalle">
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Recámara principal -->
+      <div class="room-block reveal" data-cat="pa">
+        <div class="room-head"><span class="room-num">7</span><h3>Recámara principal</h3></div>
+        <div class="room-photos">
+          <div class="g-card wide" onclick="openLightbox('images/recamara-principal-1.jpg')">
+            <img src="images/recamara-principal-1.jpg" alt="Recámara principal Marsella">
+          </div>
+          <div class="g-card" onclick="openLightbox('images/recamara-principal-2.jpg')">
+            <img src="images/recamara-principal-2.jpg" alt="Recámara principal Marsella, otro ángulo">
+          </div>
+          <div class="g-card" onclick="openLightbox('images/recamara-principal-3.jpg')">
+            <img src="images/recamara-principal-3.jpg" alt="Recámara principal Marsella, detalle">
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. Vestidor -->
+      <div class="room-block reveal" data-cat="pa">
+        <div class="room-head"><span class="room-num">8</span><h3>Vestidor</h3></div>
+        <div class="room-photos">
+          <div class="g-card wide" onclick="openLightbox('images/vestidor.jpg')">
+            <img src="images/vestidor.jpg" alt="Vestidor Marsella">
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Baño principal -->
+      <div class="room-block reveal" data-cat="pa">
+        <div class="room-head"><span class="room-num">9</span><h3>Baño principal</h3></div>
+        <div class="room-photos">
+          <div class="g-card" onclick="openLightbox('images/bano-principal-1.jpg')">
+            <img src="images/bano-principal-1.jpg" alt="Baño principal Marsella">
+          </div>
+          <div class="g-card" onclick="openLightbox('images/bano-principal-2.jpg')">
+            <img src="images/bano-principal-2.jpg" alt="Baño principal Marsella, regadera">
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. Recámara secundaria 1 -->
+      <div class="room-block reveal" data-cat="pa">
+        <div class="room-head"><span class="room-num">10</span><h3>Recámara sec. 1</h3></div>
+        <div class="room-photos">
+          <div class="g-card wide" onclick="openLightbox('images/recamara-sec1-1.jpg')">
+            <img src="images/recamara-sec1-1.jpg" alt="Recámara secundaria 1 Marsella">
+          </div>
+        </div>
+      </div>
+
+      <!-- 11. Recámara secundaria 2 -->
+      <div class="room-block reveal" data-cat="pa">
+        <div class="room-head"><span class="room-num">11</span><h3>Recámara sec. 2</h3></div>
+        <div class="room-photos">
+          <div class="g-card wide" onclick="openLightbox('images/recamara-sec2-1.jpg')">
+            <img src="images/recamara-sec2-1.jpg" alt="Recámara secundaria 2 Marsella">
+          </div>
+          <div class="g-card" onclick="openLightbox('images/recamara-sec2-2.jpg')">
+            <img src="images/recamara-sec2-2.jpg" alt="Recámara secundaria 2 Marsella, otro ángulo">
+          </div>
+          <div class="g-card" onclick="openLightbox('images/recamara-sec2-3.jpg')">
+            <img src="images/recamara-sec2-3.jpg" alt="Recámara secundaria 2 Marsella, otra opción de montaje">
+          </div>
+        </div>
+      </div>
+
+      <!-- 12. Baño secundario -->
+      <div class="room-block reveal" data-cat="pa">
+        <div class="room-head"><span class="room-num">12</span><h3>Baño sec.</h3></div>
+        <div class="room-photos">
+          <div class="g-card" onclick="openLightbox('images/bano-sec-1.jpg')">
+            <img src="images/bano-sec-1.jpg" alt="Baño secundario Marsella">
+          </div>
+          <div class="g-card" onclick="openLightbox('images/bano-sec-2.jpg')">
+            <img src="images/bano-sec-2.jpg" alt="Baño secundario Marsella, regadera">
+          </div>
+        </div>
+      </div>
+
+      <!-- Extra: Pasillo -->
+      <div class="room-block reveal" data-cat="pa">
+        <div class="room-head"><span class="room-num">+</span><h3>Pasillo</h3></div>
+        <div class="room-photos">
+          <div class="g-card wide" onclick="openLightbox('images/pasillo.jpg')">
+            <img src="images/pasillo.jpg" alt="Pasillo planta alta Marsella">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-agendar-wrap reveal">
+      <p>¿Ya recorriste toda la galería? Es momento de verla en persona.</p>
+      <a href="https://wa.me/524445188544?text=Hola%20Crystal%2C%20vi%20Marsella%20en%20tu%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20conocerla%20en%20persona." class="btn-agendar">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Agendar cita
+      </a>
+    </div>
+  </section>
+
+  <div class="divider reveal"><i></i><i></i><i></i></div>
+
+  <!-- ===================== FINANCIAMIENTO ===================== -->
+  <section class="section" style="padding-top:6px;">
+    <div class="reveal">
+      <div class="eyebrow">Financiamiento</div>
+      <h2 class="section-title">Aceptamos todo tipo de crédito</h2>
+    </div>
+    <div class="fin-card reveal">
+      <p>Trabajamos con Infonavit, Cofinavit, Fovissste, Unamos, crédito BBVA y créditos bancarios tradicionales para que Marsella sea tuya de la forma más conveniente.</p>
+      <div class="fin-badges">
+        <span>Infonavit</span>
+        <span>Cofinavit</span>
+        <span>Fovissste</span>
+        <span>Unamos</span>
+        <span>Crédito BBVA</span>
+        <span>Crédito bancario</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider reveal"><i></i><i></i><i></i></div>
+
+  <!-- ===================== UBICACIÓN ===================== -->
+  <section class="section" style="padding-top:6px;">
+    <div class="reveal">
+      <div class="eyebrow">Ubicación</div>
+      <h2 class="section-title">Un desarrollo de Terram Residencial</h2>
+      <p class="section-sub">Marsella forma parte de Terram Residencial, en Villa de Pozos, San Luis Potosí. Explora el mapa interactivo y conoce la ubicación exacta antes de tu visita.</p>
+    </div>
+    <div class="location-card reveal">
+      <img src="images/logo-terram.png" alt="Terram Residencial" class="terram-logo">
+      <div class="location-address">
+        <svg viewBox="0 0 24 24"><path d="M12 2c-4.42 0-8 3.58-8 8 0 5.5 8 12 8 12s8-6.5 8-12c0-4.42-3.58-8-8-8zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg>
+        <span>Villa de Pozos, San Luis Potosí</span>
+      </div>
+      <div class="map-embed">
+        <iframe src="https://www.google.com/maps/d/embed?mid=1lEi1uyoxgwa5YS2LHqhIXTDMivIIO_M" title="Mapa Terram Residencial" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <a href="https://www.google.com/maps/d/viewer?mid=1lEi1uyoxgwa5YS2LHqhIXTDMivIIO_M&usp=sharing" target="_blank" rel="noopener" class="btn-maps">
+        <svg viewBox="0 0 24 24"><path d="M12 2c-4.42 0-8 3.58-8 8 0 5.5 8 12 8 12s8-6.5 8-12c0-4.42-3.58-8-8-8zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg>
+        Ver mapa en pantalla completa
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="cta">
+    <h2>¿Listo para conocer Marsella en persona?</h2>
+    <p>Agenda tu visita y recorre cada espacio de este modelo diseñado para tu estilo de vida.</p>
+    <a href="https://wa.me/524445188544?text=Hola%20Crystal%2C%20vi%20Marsella%20en%20tu%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20conocerla%20en%20persona." class="cta-btn"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Agendar visita</a>
+    <div class="footer-logo">
+      <a class="logo-link" href="https://castdim.mx" target="_blank" rel="noopener">
+        <img src="images/logo-castdim.png" alt="CASTDIM">
+      </a>
+      <div class="footer-tag">Sueños Hechos Propiedad</div>
+      <div class="footer-tag" style="margin-top:6px; letter-spacing:.08em; text-transform:none; font-size:11px;">Crystal Barragán · Asesora Inmobiliaria · WhatsApp 444 518 8544</div>
+    </div>
+  </section>
+</div>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ===================== BOTÓN FLOTANTE CRYSTAL ===================== -->
+<a href="https://wa.me/524445188544?text=Hola%20Crystal%2C%20vi%20Marsella%20en%20tu%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20conocerla%20en%20persona." class="crystal-float" id="crystalFloat" aria-label="Agendar cita por WhatsApp con Crystal">
+  <span class="crystal-bubble">Hola, ¿gustas agendar cita?<small>Crystal · Asesora Inmobiliaria</small></span>
+  <span class="crystal-avatar-wrap">
+    <img src="images/crystal.jpg" alt="Crystal Barragán" class="crystal-avatar"
+         onerror="this.outerHTML='&lt;span class=&quot;crystal-avatar-fallback&quot;&gt;CB&lt;/span&gt;'">
+    <span class="crystal-wa-dot"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span>
+  </span>
+</a>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span>&times;</span>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // Tabs filter
+  const tabs = document.querySelectorAll('.tab');
+  const blocks = document.querySelectorAll('.room-block');
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      tabs.forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      const f = tab.dataset.filter;
+      blocks.forEach(b=>{
+        b.style.display = (f==='all' || b.dataset.cat===f) ? '' : 'none';
+      });
+    });
+  });
+
+  // Lightbox
+  function openLightbox(src){
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('show');
+  }
+  function closeLightbox(){
+    document.getElementById('lightbox').classList.remove('show');
+  }
+</script>
+</body>
+</html>
